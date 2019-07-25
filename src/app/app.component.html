@@ -1,21 +1,62 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="test_block"
+     [ngStyle]="blockSize"
+>
+  Resizeable block
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="app">
+  <form class="app_form"
+        #form="ngForm"
+        (ngSubmit)="_setValue(form.value)"
+  >
+    <div class="app_form-block">
+      <label for="value"
+             class="app_form-label"
+      >
+        Complete value
+      </label>
+      <input id="value"
+             type="number"
+             class="app_form-input"
+             name="value"
+             [ngModel]="initialWidth"
+             required/>
+    </div>
+    <div class="app_form-block">
+      <label for="type"
+             class="app_form-label"
+      >
+        Choose value type
+      </label>
+      <select id="type"
+              name="type"
+              class="app_form-input"
+              [ngModel]="'px'"
+      >
+        <option *ngFor="let type of valueTypes"
+                [value]="type"
+        >
+          {{type}}
+        </option>
+      </select>
+    </div>
+    <div class="app_form-error-message"
+         [hidden]="form.valid"
+    >
+      Please enter size of block
+    </div>
+    <button class="app_button"
+            [hidden]="reactiveMode"
+            [disabled]="!form.valid"
+    >
+      Resize
+    </button>
+    <label>
+      <input (change)="modeChange($event)"
+             type="checkbox"/>
+      Reactive change mode
+    </label>
+  </form>
+</div>
 
 <router-outlet></router-outlet>
